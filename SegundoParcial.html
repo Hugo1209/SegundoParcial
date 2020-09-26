@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documento</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 
 </head>
+
 <body>
     <h1>Segundo Examen Parcial</h1>
-
-
+    
     <form>
         <h4>Login: </h4>
         <input type="text" id="Login" name="Login">
@@ -31,10 +32,53 @@
         <h4> </h4>
         <br/>
         <input type="submit" id="Enviar" value="Enviar" name="Enviar">    
-
+      
     </form>
-
-
+  
     <script src="js/bootstrap.bundle.min.js"></script>
+
+    <br>
+    <br>
+    <div id="respuesta"></div>
+
+
 </body>
+
+    <script>
+
+        $('#Enviar').click(function()
+        { 
+            var Login=document.getElementById('Login').value;
+            var Id=document.getElementById('Id').value;
+            var Avatar=document.getElementById('Avatar').value;
+            var Nombre=document.getElementById('Nombre').value;
+            var Public_repos=document.getElementById('Public_repos').value;
+            var Followers=document.getElementById('Followers').value;
+            var Following=document.getElementById('Following').value;
+            var Created_at=document.getElementById('Created_at').value;
+
+            var ruta="Log"+Login+"&Id"+Id+"&Ava"+Avatar+"&Nom"+Nombre+"&Pub"+Public_repos+"&foe"+Followers+"&foi"+Following+"&Cre"+Created_at;         
+
+            $.ajax({
+                url: 'back.php',
+                type: 'POST',
+                data: ruta,
+            })
+            
+            .done(function(){
+                $('#respuesta').html(res)   
+            })
+
+            .fail(function(){
+                console.log("error");
+            })
+
+            .always(function(){
+                console.log("complete")
+            })
+        });
+
+
+    </script>
+
 </html>
